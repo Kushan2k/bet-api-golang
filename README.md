@@ -17,7 +17,7 @@ Bet API is a Go-based project designed to handle betting operations efficiently.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/bet_api.git
+git clone https://github.com/Kushan2k/bet-api-golang.git
 ```
 
 2. Navigate to the project directory:
