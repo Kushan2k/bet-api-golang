@@ -15,12 +15,16 @@ var (
 
 func main() {
 
+	server:=http.NewServeMux()
 	bet_service:=services.NewBetService(bets, balances, &mu)
 
-	http.HandleFunc("/place_bet", bet_service.PlaceBetHandler)
-	http.HandleFunc("/settle_bet", bet_service.SettleBetHandler)
-	http.HandleFunc("/balance", bet_service.BalanceHandler)
+	server.HandleFunc("/place_bet", bet_service.PlaceBetHandler)
+	server.HandleFunc("/settle_bet", bet_service.SettleBetHandler)
+	server.HandleFunc("/balance", bet_service.BalanceHandler)
 
 	log.Println("Starting server on :8080...")
-	http.ListenAndServe(":8080", nil)
+	if err := http.ListenAndServe(":8080", server); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
+	log.Println("Server stopped.")
 }

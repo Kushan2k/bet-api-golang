@@ -1,2 +1,27 @@
 
-GET http://localhost:8080/balance?user_id=1
+GET http://localhost:8080/balance?user_id=123
+
+
+
+
+###
+POST http://localhost:8080/place_bet
+Content-Type: application/json
+
+{
+  "user_id":"123",
+  "event_id":"123",
+  "odds":0.5,
+  "amount":200,
+  "won":false
+}
+
+
+###
+POST http://localhost:8080/settle_bet
+Content-Type: application/json
+
+{
+  "result":"win",
+  "event_id":"123"
+}
