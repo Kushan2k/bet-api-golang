@@ -2,14 +2,20 @@
 
 ## Overview
 
-Bet API is a Go-based project designed to handle betting operations efficiently. It provides a robust and scalable backend for managing bets, users, and transactions. The API is built with performance and reliability in mind, making it suitable for high-traffic applications.
+Bet API is a Go-based project designed to handle betting operations efficiently.using native http library with some minimal functions that let's users to make a bet for a event,settle the bet for the event and check users balances
+
+## Assumptions
+
+- users ara pre registerd (there is no user auth or create)
+- events ara already added
+- setlling the bets are done by sending a post call to the /settle_bet endpoint using the event id and the result win/lose
+-
 
 ## Features
 
 - User authentication and management
 - Bet placement and tracking
-- Transaction handling
-- Real-time updates
+- Mutual Exclution
 - Scalable architecture
 
 ## Installation
