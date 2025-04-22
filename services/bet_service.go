@@ -42,7 +42,10 @@ func (s *BetService) PlaceBetHandler(w http.ResponseWriter, r *http.Request) {
 	s.balances[bet.UserID] -= bet.Amount
 
 	log.Printf("Placed bet: %+v\n", bet)
-	w.WriteHeader(http.StatusCreated)
+	
+	w.Write([]byte("Bet placed successfully"))
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(bet)
 }
 
 func (s *BetService) SettleBetHandler(w http.ResponseWriter, r *http.Request) {
@@ -85,6 +88,7 @@ func (s *BetService) SettleBetHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Settled bets for event %s with result: %s\n", req.EventID, req.Result)
 	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode("Bets settled successfully")
 }
 
 func (s *BetService) BalanceHandler(w http.ResponseWriter, r *http.Request) {
@@ -96,6 +100,11 @@ func (s *BetService) BalanceHandler(w http.ResponseWriter, r *http.Request) {
 	userID := r.URL.Query().Get("user_id")
 	if userID == "" {
 		http.Error(w, "Missing user_id", http.StatusBadRequest)
+		return
+	}
+
+	if s.balances[userID] == 0 {
+		http.Error(w, "User not found", http.StatusNotFound)
 		return
 	}
 
